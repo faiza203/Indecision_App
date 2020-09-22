@@ -61,7 +61,6 @@ function removeIt(e) {
 }
 function removeAll() {
     appInfo.options = [];
-    randomBtn.disabled = true;
     creatingOptions();
 }
 function giveRandom() {

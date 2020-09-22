@@ -10,7 +10,7 @@ function creatingOptions() {
     const newOption = (<form onSubmit={addNewOption}><input type="text"></input><button type="submit">Add</button></form>)
     ReactDOM.render(options, optionsDiv);
     ReactDOM.render(newOption, newOptionDiv);
-    if (appInfo.options.length = 0) {
+    if (appInfo.options.length === 0) {
         randomBtn.disabled = true;
     } else {
         randomBtn.disabled = false;
@@ -36,7 +36,6 @@ function removeIt(e) {
 }
 function removeAll() {
     appInfo.options = [];
-    randomBtn.disabled = true;
     creatingOptions();
 }
 function giveRandom() {
