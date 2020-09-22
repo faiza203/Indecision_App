@@ -3,33 +3,44 @@
 var optionsDiv = document.getElementById("options");
 var newOptionDiv = document.getElementById("newOption");
 
+var appInfo = {
+    options: [["option", uuid()]]
+};
 function creatingOptions() {
-    var options = React.createElement(
-        "div",
-        null,
-        React.createElement(
-            "h1",
-            null,
-            "Your Options"
-        ),
-        React.createElement(
-            "button",
-            null,
-            "Remove All"
-        )
-    );
+    var options = appInfo.options.map(function (option, i) {
+        return React.createElement(
+            "div",
+            { key: i, id: option[1] },
+            React.createElement(
+                "p",
+                null,
+                option[0]
+            ),
+            React.createElement(
+                "button",
+                null,
+                "Remove"
+            )
+        );
+    });
     var newOption = React.createElement(
         "form",
-        null,
+        { onSubmit: addNewOption },
         React.createElement("input", { type: "text" }),
         React.createElement(
             "button",
-            null,
-            "Remove"
+            { type: "submit" },
+            "Add"
         )
     );
     ReactDOM.render(options, optionsDiv);
     ReactDOM.render(newOption, newOptionDiv);
 };
-
+function addNewOption(e) {
+    e.preventDefault();
+    var inputValue = e.target.elements[0].value;
+    appInfo.options.push([inputValue, uuid()]);
+    e.target.elements[0].value = "";
+    creatingOptions();
+}
 creatingOptions();
