@@ -2,9 +2,10 @@
 
 var optionsDiv = document.getElementById("options");
 var newOptionDiv = document.getElementById("newOption");
+var randomBtn = document.getElementById("giveRandomBtn");
 
 var appInfo = {
-    options: [["option", uuid()]]
+    options: []
 };
 function creatingOptions() {
     var options = appInfo.options.map(function (option, i) {
@@ -35,6 +36,11 @@ function creatingOptions() {
     );
     ReactDOM.render(options, optionsDiv);
     ReactDOM.render(newOption, newOptionDiv);
+    if (appInfo.options.length === 0) {
+        randomBtn.disabled = true;
+    } else {
+        randomBtn.disabled = false;
+    }
 };
 function addNewOption(e) {
     e.preventDefault();
@@ -52,4 +58,15 @@ function removeIt(e) {
             appInfo.options.splice(appInfo.options.indexOf(option), 1);creatingOptions();
         }
     });
+}
+function removeAll() {
+    appInfo.options = [];
+    randomBtn.disabled = true;
+    creatingOptions();
+}
+function giveRandom() {
+    var options = appInfo.options.length;
+    var takeRandom = Math.floor(Math.random() * options);
+    var randomOption = appInfo.options[takeRandom][0];
+    alert(randomOption);
 }
