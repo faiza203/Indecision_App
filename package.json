@@ -1,0 +1,8 @@
+{
+  "name": "indecision_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/faiza203/Indecision_App.git",
+  "author": "faiza203 <fiazfaiza981@gmail.com>",
+  "license": "MIT"
+}
