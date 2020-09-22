@@ -1,11 +1,12 @@
 {
-  "name": "indecision_app",
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/faiza203/Indecision_App.git",
-  "author": "faiza203 <fiazfaiza981@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "babel-preset-env": "^7.0.0-beta.3"
-  }
+    "name": "indecision_app",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/faiza203/Indecision_App.git",
+    "author": "faiza203 <fiazfaiza981@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "babel-preset-env": "1.5.2",
+        "babel-preset-react": "6.24.1"
+    }
 }
