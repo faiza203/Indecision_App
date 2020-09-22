@@ -6,7 +6,7 @@ const appInfo = {
     options: []
 }
 function creatingOptions() {
-    const options = (appInfo.options.map((option, i) => <form key={i} onSubmit={removeIt} id={option[1]}><p>{option[0]}</p><button>Remove</button></form>));
+    const options = (appInfo.options.map((option, i) => <form key={i} onSubmit={removeIt} id={option[1]}><ol><li><p>{option[0]}</p><button>Remove</button></li></ol></form>));
     const newOption = (<form onSubmit={addNewOption}><input type="text"></input><button type="submit">Add</button></form>)
     ReactDOM.render(options, optionsDiv);
     ReactDOM.render(newOption, newOptionDiv);

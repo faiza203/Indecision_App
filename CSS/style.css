@@ -1,0 +1,16 @@
+body{
+    background-color: #6c757d;
+}
+header{
+    font-weight: 400;
+    background-color:rgba(0,0,0,.65);
+    color: red;
+    text-align: center;
+    font-style: normal;
+}
+#giveRandomBtn{
+    border: none;
+    border-radius: 0px;
+    width: 100%;
+    text-align: center;
+}

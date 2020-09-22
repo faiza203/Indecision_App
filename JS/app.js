@@ -13,14 +13,22 @@ function creatingOptions() {
             "form",
             { key: i, onSubmit: removeIt, id: option[1] },
             React.createElement(
-                "p",
+                "ol",
                 null,
-                option[0]
-            ),
-            React.createElement(
-                "button",
-                null,
-                "Remove"
+                React.createElement(
+                    "li",
+                    null,
+                    React.createElement(
+                        "p",
+                        null,
+                        option[0]
+                    ),
+                    React.createElement(
+                        "button",
+                        null,
+                        "Remove"
+                    )
+                )
             )
         );
     });
