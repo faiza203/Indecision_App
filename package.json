@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "https://github.com/faiza203/Indecision_App.git",
   "author": "faiza203 <fiazfaiza981@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-env": "^7.0.0-beta.3"
+  }
 }
