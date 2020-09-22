@@ -9,8 +9,8 @@ var appInfo = {
 function creatingOptions() {
     var options = appInfo.options.map(function (option, i) {
         return React.createElement(
-            "div",
-            { key: i, id: option[1] },
+            "form",
+            { key: i, onSubmit: removeIt, id: option[1] },
             React.createElement(
                 "p",
                 null,
@@ -44,3 +44,12 @@ function addNewOption(e) {
     creatingOptions();
 }
 creatingOptions();
+function removeIt(e) {
+    e.preventDefault();
+    var id = e.target.id;
+    appInfo.options.map(function (option) {
+        if (option[1] === id) {
+            appInfo.options.splice(appInfo.options.indexOf(option), 1);creatingOptions();
+        }
+    });
+}

@@ -5,7 +5,7 @@ const  appInfo = {
     options : [["option",uuid()]]
 }
 function creatingOptions() {
-    const options = (appInfo.options.map((option,i) => <div key={i} id={option[1]}><p>{option[0]}</p><button>Remove</button></div>));
+    const options = (appInfo.options.map((option,i) => <form key={i} onSubmit={removeIt} id={option[1]}><p>{option[0]}</p><button>Remove</button></form>));
     const newOption = (<form onSubmit={addNewOption}><input type="text"></input><button type="submit">Add</button></form>)
     ReactDOM.render(options , optionsDiv);
     ReactDOM.render(newOption , newOptionDiv);
@@ -18,3 +18,10 @@ function addNewOption(e){
   creatingOptions(); 
 } 
 creatingOptions();
+function removeIt(e){
+    e.preventDefault();
+    const id = e.target.id;
+    appInfo.options.map((option) => {if(option[1] === id) { appInfo.options.splice(appInfo.options.indexOf(option) , 1) ; creatingOptions();
+    }}
+    )
+}
