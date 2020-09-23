@@ -1,13 +1,12 @@
 const optionsDiv = document.getElementById("options");
 const newOptionDiv = document.getElementById("newOption");
 const randomBtn = document.getElementById("giveRandomBtn");
-
 const appInfo = {
     options: []
 }
 function creatingOptions() {
-    const options = (appInfo.options.map((option, i) => <form key={i} onSubmit={removeIt} id={option[1]}><ol><li><p>{option[0]}</p><button>Remove</button></li></ol></form>));
-    const newOption = (<form onSubmit={addNewOption}><input type="text"></input><button type="submit">Add</button></form>)
+    const options = (appInfo.options.map((option, i) => <form key={i} id="addNewOptionForm" onSubmit={removeIt} id={option[1]}><ol><li><h3>{option[0]}</h3><button className="btn btn-success">Remove</button></li></ol></form>));
+    const newOption = (<form onSubmit={addNewOption}><input type="text"></input><button type="submit" className="btn btn-primary">Add</button></form>)
     ReactDOM.render(options, optionsDiv);
     ReactDOM.render(newOption, newOptionDiv);
     if (appInfo.options.length === 0) {
@@ -19,9 +18,14 @@ function creatingOptions() {
 function addNewOption(e) {
     e.preventDefault();
     const inputValue = e.target.elements[0].value;
-    appInfo.options.push([inputValue, uuid()]);
-    e.target.elements[0].value = "";
-    creatingOptions();
+    if(inputValue === ""){
+        alert("Please give a value")
+    }
+    else{
+       appInfo.options.push([inputValue, uuid()]);
+        e.target.elements[0].value = "";
+        creatingOptions();
+    }
 }
 creatingOptions();
 function removeIt(e) {
@@ -35,8 +39,12 @@ function removeIt(e) {
     )
 }
 function removeAll() {
+    if(JSON.stringify(appInfo.options) === JSON.stringify([])){
+        alert("There is no option to delete")
+    }else{
     appInfo.options = [];
     creatingOptions();
+    }
 }
 function giveRandom() {
     const options = appInfo.options.length;

@@ -1,9 +1,10 @@
 "use strict";
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var optionsDiv = document.getElementById("options");
 var newOptionDiv = document.getElementById("newOption");
 var randomBtn = document.getElementById("giveRandomBtn");
-
 var appInfo = {
     options: []
 };
@@ -11,7 +12,7 @@ function creatingOptions() {
     var options = appInfo.options.map(function (option, i) {
         return React.createElement(
             "form",
-            { key: i, onSubmit: removeIt, id: option[1] },
+            _defineProperty({ key: i, id: "addNewOptionForm", onSubmit: removeIt }, "id", option[1]),
             React.createElement(
                 "ol",
                 null,
@@ -19,13 +20,13 @@ function creatingOptions() {
                     "li",
                     null,
                     React.createElement(
-                        "p",
+                        "h3",
                         null,
                         option[0]
                     ),
                     React.createElement(
                         "button",
-                        null,
+                        { className: "btn btn-success" },
                         "Remove"
                     )
                 )
@@ -38,7 +39,7 @@ function creatingOptions() {
         React.createElement("input", { type: "text" }),
         React.createElement(
             "button",
-            { type: "submit" },
+            { type: "submit", className: "btn btn-primary" },
             "Add"
         )
     );
@@ -53,9 +54,13 @@ function creatingOptions() {
 function addNewOption(e) {
     e.preventDefault();
     var inputValue = e.target.elements[0].value;
-    appInfo.options.push([inputValue, uuid()]);
-    e.target.elements[0].value = "";
-    creatingOptions();
+    if (inputValue === "") {
+        alert("Please give a value");
+    } else {
+        appInfo.options.push([inputValue, uuid()]);
+        e.target.elements[0].value = "";
+        creatingOptions();
+    }
 }
 creatingOptions();
 function removeIt(e) {
@@ -68,8 +73,12 @@ function removeIt(e) {
     });
 }
 function removeAll() {
-    appInfo.options = [];
-    creatingOptions();
+    if (JSON.stringify(appInfo.options) === JSON.stringify([])) {
+        alert("There is no option to delete");
+    } else {
+        appInfo.options = [];
+        creatingOptions();
+    }
 }
 function giveRandom() {
     var options = appInfo.options.length;

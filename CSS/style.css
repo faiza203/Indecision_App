@@ -4,7 +4,7 @@ body{
 header{
     font-weight: 400;
     background-color:rgba(0,0,0,.65);
-    color: red;
+    color: whitesmoke;
     text-align: center;
     font-style: normal;
 }
@@ -13,4 +13,31 @@ header{
     border-radius: 0px;
     width: 100%;
     text-align: center;
+}
+#addAndDel{  
+    padding: 10px;
+     margin: 10px 20em;
+    border: 3px rgba(0,0,0,.65) solid;
+}
+#removeAllDiv{
+    display: flex;
+    justify-content: space-between;  
+}
+#options form ol li{
+    display: flex;
+    justify-content: space-between;  
+}
+#newOption form{
+    display: flex;
+    justify-content: space-between;  
+}
+
+#newOption input{
+    border: none;
+    border-radius: 5px;
+    width: 80%;
+    margin-right: 50px;
+}
+.btn{
+    margin-bottom: 10px;
 }
