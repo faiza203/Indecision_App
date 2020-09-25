@@ -5,7 +5,9 @@
     "repository": "https://github.com/faiza203/Indecision_App.git",
     "author": "faiza203 <fiazfaiza981@gmail.com>",
     "license": "MIT",
-    "scripts": {"start": " JS/app.js"},
+    "scripts": {
+        "start": " JS/app.js"
+    },
     "dependencies": {
         "babel-preset-env": "1.5.2",
         "babel-preset-react": "6.24.1"
