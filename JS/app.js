@@ -53,7 +53,7 @@ function creatingOptions() {
 };
 function addNewOption(e) {
     e.preventDefault();
-    var inputValue = e.target.elements[0].value;
+    var inputValue = e.target.elements[0].value.trim();
     if (inputValue === "") {
         alert("Please give a value");
     } else {

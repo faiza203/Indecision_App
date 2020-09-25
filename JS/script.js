@@ -17,7 +17,7 @@ function creatingOptions() {
 };
 function addNewOption(e) {
     e.preventDefault();
-    const inputValue = e.target.elements[0].value;
+    const inputValue = e.target.elements[0].value.trim();
     if(inputValue === ""){
         alert("Please give a value")
     }
