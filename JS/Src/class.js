@@ -6,17 +6,17 @@ class IndecisionApp extends React.Component {
         this.option = []
     }
     render() {
-        return <div className=" , mt-1">
-            <Header className="ml-2" />
+        return <div>
+            <Header />
             <RemoveAllOptions />
             <Options className="ml-2" />
-            <AddNewOption className="ml-2" />
+            <AddNewOption className="ml-5 mr-5" />
         </div>
     }
 }
 class Header extends React.Component {
     render() {
-        return <header className="text-center m-3" >
+        return <header className="text-center bg-secondary p-1" >
             <h1 className="h1">Indecision App</h1>
             <p>Put your life in the hands of computer</p>
         </header>
@@ -47,7 +47,7 @@ class RemoveAllOptions extends React.Component {
             <button id="randomBtn" className="w-100 btn btn-outline-primary" onClick={this.handleRandom}>What Should I Do ?</button>
             <div className="ml-5 mr-5 mt-2 mb-2 d-flex justify-content-between">
                 <h1 className="h1 ml-5">Your Options</h1>
-                <button onClick={this.handleRemoveAll} className="mr-5 btn btn-outline-danger ">Remove All</button>
+                <button onClick={this.handleRemoveAll} className="mr-5 pt-0 pb-0 btn btn-outline-danger ">Remove All</button>
             </div>
         </div>
     }
@@ -71,8 +71,9 @@ class Options extends React.Component {
     render() {
         return options.map((option, i) => {
             return <form key={i} id={option[1]} onSubmit={this.handleRemove} className="ml-5 mr-5 ">
-                <div className="ml-5 mr-5 mb-2 d-flex justify-content-between">            <p name="option" className="ml-5">{option[0]}</p>
-                    <button id={option[1] + "Btn" } className="mr-5 btn btn-outline-success">Remove</button>
+                <div className="ml-5 mr-5 mb-2 d-flex justify-content-between">        
+                    <p name="option" className="ml-5">{option[0]}</p>
+                    <button id={option[1] + "Btn" } className="btn btn-outline-success">Remove</button>
                 </div>
             </form>
         })
@@ -85,8 +86,8 @@ class AddNewOption extends React.Component {
     };
     addOption(e) {
         e.preventDefault();
-        const value = e.target[0].value;
-        if (value === "") {
+        const value = e.target[0].value.trim();
+        if (!value) {
             alert("Please add a value")
         }
         else {
@@ -97,9 +98,9 @@ class AddNewOption extends React.Component {
         }
     }
     render() {
-        return <form key="i" onSubmit={this.addOption}>
-            <input type="text"></input>
-            <button>Add</button></form>
+        return <form key="i" onSubmit={this.addOption} className=" ml-5 mr-5 d-flex justify-content-between" >
+            <input type="text" className="form-control  mr-2 ml-5"></input>
+            <button className="btn btn-outline-info mr-5">Add</button></form>
     }
 }
 function makeApp() {

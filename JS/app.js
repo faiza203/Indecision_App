@@ -28,11 +28,11 @@ var IndecisionApp = function (_React$Component) {
         value: function render() {
             return React.createElement(
                 "div",
-                { className: " , mt-1" },
-                React.createElement(Header, { className: "ml-2" }),
+                null,
+                React.createElement(Header, null),
                 React.createElement(RemoveAllOptions, null),
                 React.createElement(Options, { className: "ml-2" }),
-                React.createElement(AddNewOption, { className: "ml-2" })
+                React.createElement(AddNewOption, { className: "ml-5 mr-5" })
             );
         }
     }]);
@@ -54,7 +54,7 @@ var Header = function (_React$Component2) {
         value: function render() {
             return React.createElement(
                 "header",
-                { className: "text-center m-3" },
+                { className: "text-center bg-secondary p-1" },
                 React.createElement(
                     "h1",
                     { className: "h1" },
@@ -123,7 +123,7 @@ var RemoveAllOptions = function (_React$Component3) {
                     ),
                     React.createElement(
                         "button",
-                        { onClick: this.handleRemoveAll, className: "mr-5 btn btn-outline-danger " },
+                        { onClick: this.handleRemoveAll, className: "mr-5 pt-0 pb-0 btn btn-outline-danger " },
                         "Remove All"
                     )
                 )
@@ -171,7 +171,6 @@ var Options = function (_React$Component4) {
                     React.createElement(
                         "div",
                         { className: "ml-5 mr-5 mb-2 d-flex justify-content-between" },
-                        "            ",
                         React.createElement(
                             "p",
                             { name: "option", className: "ml-5" },
@@ -179,7 +178,7 @@ var Options = function (_React$Component4) {
                         ),
                         React.createElement(
                             "button",
-                            { id: option[1] + "Btn", className: "mr-5 btn btn-outline-success" },
+                            { id: option[1] + "Btn", className: "btn btn-outline-success" },
                             "Remove"
                         )
                     )
@@ -207,8 +206,8 @@ var AddNewOption = function (_React$Component5) {
         key: "addOption",
         value: function addOption(e) {
             e.preventDefault();
-            var value = e.target[0].value;
-            if (value === "") {
+            var value = e.target[0].value.trim();
+            if (!value) {
                 alert("Please add a value");
             } else {
                 options.push([value, uuid()]);
@@ -222,11 +221,11 @@ var AddNewOption = function (_React$Component5) {
         value: function render() {
             return React.createElement(
                 "form",
-                { key: "i", onSubmit: this.addOption },
-                React.createElement("input", { type: "text" }),
+                { key: "i", onSubmit: this.addOption, className: " ml-5 mr-5 d-flex justify-content-between" },
+                React.createElement("input", { type: "text", className: "form-control  mr-2 ml-5" }),
                 React.createElement(
                     "button",
-                    null,
+                    { className: "btn btn-outline-info mr-5" },
                     "Add"
                 )
             );
