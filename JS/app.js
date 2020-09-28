@@ -9,14 +9,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var app = document.getElementById("app");
+var options = [["option", uuid()]];
 
 var IndecisionApp = function (_React$Component) {
     _inherits(IndecisionApp, _React$Component);
 
-    function IndecisionApp() {
+    function IndecisionApp(props) {
         _classCallCheck(this, IndecisionApp);
 
-        return _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
+
+        _this.option = [["option", uuid()]];
+        return _this;
     }
 
     _createClass(IndecisionApp, [{
@@ -26,7 +30,9 @@ var IndecisionApp = function (_React$Component) {
                 "div",
                 null,
                 React.createElement(Header, null),
-                React.createElement(RemoveAllOptions, null)
+                React.createElement(RemoveAllOptions, null),
+                React.createElement(Options, null),
+                React.createElement(AddNewOption, null)
             );
         }
     }]);
@@ -69,13 +75,22 @@ var Header = function (_React$Component2) {
 var RemoveAllOptions = function (_React$Component3) {
     _inherits(RemoveAllOptions, _React$Component3);
 
-    function RemoveAllOptions() {
+    function RemoveAllOptions(props) {
         _classCallCheck(this, RemoveAllOptions);
 
-        return _possibleConstructorReturn(this, (RemoveAllOptions.__proto__ || Object.getPrototypeOf(RemoveAllOptions)).apply(this, arguments));
+        var _this3 = _possibleConstructorReturn(this, (RemoveAllOptions.__proto__ || Object.getPrototypeOf(RemoveAllOptions)).call(this, props));
+
+        _this3.handleRemoveAll = _this3.handleRemoveAll.bind(_this3);
+        return _this3;
     }
 
     _createClass(RemoveAllOptions, [{
+        key: "handleRemoveAll",
+        value: function handleRemoveAll() {
+            options = [];
+            makeApp();
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
@@ -93,7 +108,7 @@ var RemoveAllOptions = function (_React$Component3) {
                 ),
                 React.createElement(
                     "button",
-                    null,
+                    { onClick: this.handleRemoveAll },
                     "Remove All"
                 )
             );
@@ -103,4 +118,87 @@ var RemoveAllOptions = function (_React$Component3) {
     return RemoveAllOptions;
 }(React.Component);
 
-ReactDOM.render(React.createElement(IndecisionApp, null), app);
+var Options = function (_React$Component4) {
+    _inherits(Options, _React$Component4);
+
+    function Options(props) {
+        _classCallCheck(this, Options);
+
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.handleRemove = _this4.handleRemove.bind(_this4);
+        return _this4;
+    }
+
+    _createClass(Options, [{
+        key: "handleRemove",
+        value: function handleRemove(e) {
+            e.preventDefault();
+            var id = e.target.id;
+            options.map(function (option) {
+                if (option[1] === id) {
+                    var index = options.indexOf(option);
+                    options.splice(index, 1);
+                    makeApp();
+                }
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var _this5 = this;
+
+            return options.map(function (option, i) {
+                return React.createElement(
+                    "form",
+                    { key: "i", id: option[1], onSubmit: _this5.handleRemove },
+                    React.createElement(
+                        "p",
+                        { name: "option" },
+                        "option"
+                    ),
+                    React.createElement(
+                        "button",
+                        { id: option[1] + "Btn" },
+                        "Remove"
+                    )
+                );
+            });
+        }
+    }]);
+
+    return Options;
+}(React.Component);
+
+var AddNewOption = function (_React$Component5) {
+    _inherits(AddNewOption, _React$Component5);
+
+    function AddNewOption() {
+        _classCallCheck(this, AddNewOption);
+
+        return _possibleConstructorReturn(this, (AddNewOption.__proto__ || Object.getPrototypeOf(AddNewOption)).apply(this, arguments));
+    }
+
+    _createClass(AddNewOption, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "form",
+                null,
+                React.createElement("input", null),
+                React.createElement(
+                    "button",
+                    null,
+                    "Add"
+                )
+            );
+        }
+    }]);
+
+    return AddNewOption;
+}(React.Component);
+
+function makeApp() {
+    return ReactDOM.render(React.createElement(IndecisionApp, null), app);
+}
+makeApp();
