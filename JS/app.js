@@ -1,247 +1,136 @@
 "use strict";
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var app = document.getElementById("app");
-var options = [["option", uuid()]];
-
-var IndecisionApp = function (_React$Component) {
-    _inherits(IndecisionApp, _React$Component);
-
-    function IndecisionApp(props) {
-        _classCallCheck(this, IndecisionApp);
-
-        var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
-
-        _this.option = [];
-        return _this;
-    }
-
-    _createClass(IndecisionApp, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
+var appInfo = {
+    options: []
+};
+function createMainElements() {
+    var mainElements = React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "header",
+            { className: "pt-2 pb-1" },
+            React.createElement(
+                "h1",
+                { className: "h1" },
+                "Indecision Application"
+            ),
+            React.createElement(
+                "p",
                 null,
-                React.createElement(Header, null),
-                React.createElement(RemoveAllOptions, null),
-                React.createElement(Options, { className: "ml-2" }),
-                React.createElement(AddNewOption, { className: "ml-5 mr-5" })
-            );
-        }
-    }]);
-
-    return IndecisionApp;
-}(React.Component);
-
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
-
-    function Header() {
-        _classCallCheck(this, Header);
-
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
-
-    _createClass(Header, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "header",
-                { className: "text-center bg-secondary p-1" },
-                React.createElement(
-                    "h1",
-                    { className: "h1" },
-                    "Indecision App"
-                ),
-                React.createElement(
-                    "p",
-                    null,
-                    "Put your life in the hands of computer"
-                )
-            );
-        }
-    }]);
-
-    return Header;
-}(React.Component);
-
-var RemoveAllOptions = function (_React$Component3) {
-    _inherits(RemoveAllOptions, _React$Component3);
-
-    function RemoveAllOptions(props) {
-        _classCallCheck(this, RemoveAllOptions);
-
-        var _this3 = _possibleConstructorReturn(this, (RemoveAllOptions.__proto__ || Object.getPrototypeOf(RemoveAllOptions)).call(this, props));
-
-        _this3.handleRemoveAll = _this3.handleRemoveAll.bind(_this3);
-        _this3.handleRandom = _this3.handleRandom.bind(_this3);
-        return _this3;
-    }
-
-    _createClass(RemoveAllOptions, [{
-        key: "handleRandom",
-        value: function handleRandom() {
-            var randomIndex = Math.floor(Math.random() * options.length);
-            var randomOption = options[randomIndex][0];
-            alert("You should do " + randomOption);
-        }
-    }, {
-        key: "handleRemoveAll",
-        value: function handleRemoveAll() {
-            if (options.length === 0) {
-                alert("There is no option to delete");
-            } else {
-                options = [];
-                makeApp();
-            }
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
+                "Put your life in the hand of computer"
+            )
+        ),
+        React.createElement(
+            "button",
+            { id: "giveRandomBtn", className: "btn btn-outline-info", onClick: giveRandom, disabled: true },
+            "What Should I Do?"
+        ),
+        React.createElement(
+            "div",
+            { id: "addAndDel" },
+            React.createElement(
                 "div",
-                { className: "text-center" },
+                { id: "removeAllDiv" },
+                React.createElement(
+                    "h2",
+                    { className: "h2" },
+                    "Your Options"
+                ),
                 React.createElement(
                     "button",
-                    { id: "randomBtn", className: "w-100 btn btn-outline-primary", onClick: this.handleRandom },
-                    "What Should I Do ?"
-                ),
+                    { onClick: removeAll, className: "btn btn-danger", id: "deleteAll" },
+                    "Remove All"
+                )
+            ),
+            React.createElement("div", { id: "options" }),
+            React.createElement("div", { id: "newOption" })
+        )
+    );
+    ReactDOM.render(mainElements, app);
+    creatingOptions();
+}
+function creatingOptions() {
+    var optionsDiv = document.getElementById("options");
+    var newOptionDiv = document.getElementById("newOption");
+    var randomBtn = document.getElementById("giveRandomBtn");
+    var options = appInfo.options.map(function (option, i) {
+        return React.createElement(
+            "form",
+            _defineProperty({ key: i, id: "addNewOptionForm", onSubmit: removeIt }, "id", option[1]),
+            React.createElement(
+                "ol",
+                null,
                 React.createElement(
-                    "div",
-                    { className: "ml-5 mr-5 mt-2 mb-2 d-flex justify-content-between" },
+                    "li",
+                    null,
                     React.createElement(
-                        "h1",
-                        { className: "h1 ml-5" },
-                        "Your Options"
+                        "h3",
+                        null,
+                        option[0]
                     ),
                     React.createElement(
                         "button",
-                        { onClick: this.handleRemoveAll, className: "mr-5 pt-0 pb-0 btn btn-outline-danger " },
-                        "Remove All"
+                        { className: "btn btn-success" },
+                        "Remove"
                     )
                 )
-            );
-        }
-    }]);
-
-    return RemoveAllOptions;
-}(React.Component);
-
-var Options = function (_React$Component4) {
-    _inherits(Options, _React$Component4);
-
-    function Options(props) {
-        _classCallCheck(this, Options);
-
-        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-        _this4.handleRemove = _this4.handleRemove.bind(_this4);
-        return _this4;
-    }
-
-    _createClass(Options, [{
-        key: "handleRemove",
-        value: function handleRemove(e) {
-            e.preventDefault();
-            var id = e.target.id;
-            options.map(function (option) {
-                if (option[1] === id) {
-                    var index = options.indexOf(option);
-                    options.splice(index, 1);
-                    makeApp();
-                }
-            });
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this5 = this;
-
-            return options.map(function (option, i) {
-                return React.createElement(
-                    "form",
-                    { key: i, id: option[1], onSubmit: _this5.handleRemove, className: "ml-5 mr-5 " },
-                    React.createElement(
-                        "div",
-                        { className: "ml-5 mr-5 mb-2 d-flex justify-content-between" },
-                        React.createElement(
-                            "p",
-                            { name: "option", className: "ml-5" },
-                            option[0]
-                        ),
-                        React.createElement(
-                            "button",
-                            { id: option[1] + "Btn", className: "btn btn-outline-success" },
-                            "Remove"
-                        )
-                    )
-                );
-            });
-        }
-    }]);
-
-    return Options;
-}(React.Component);
-
-var AddNewOption = function (_React$Component5) {
-    _inherits(AddNewOption, _React$Component5);
-
-    function AddNewOption(props) {
-        _classCallCheck(this, AddNewOption);
-
-        var _this6 = _possibleConstructorReturn(this, (AddNewOption.__proto__ || Object.getPrototypeOf(AddNewOption)).call(this, props));
-
-        _this6.addOption = _this6.addOption.bind(_this6);
-        return _this6;
-    }
-
-    _createClass(AddNewOption, [{
-        key: "addOption",
-        value: function addOption(e) {
-            e.preventDefault();
-            var value = e.target[0].value.trim();
-            if (!value) {
-                alert("Please add a value");
-            } else {
-                options.push([value, uuid()]);
-                console.log(value);
-                makeApp();
-                e.target[0].value = "";
-            }
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "form",
-                { key: "i", onSubmit: this.addOption, className: " ml-5 mr-5 d-flex justify-content-between" },
-                React.createElement("input", { type: "text", className: "form-control  mr-2 ml-5" }),
-                React.createElement(
-                    "button",
-                    { className: "btn btn-outline-info mr-5" },
-                    "Add"
-                )
-            );
-        }
-    }]);
-
-    return AddNewOption;
-}(React.Component);
-
-function makeApp() {
-    ReactDOM.render(React.createElement(IndecisionApp, null), app);
-    var randomBtn = document.getElementById("randomBtn");
-    if (options.length === 0) {
+            )
+        );
+    });
+    var newOption = React.createElement(
+        "form",
+        { onSubmit: addNewOption },
+        React.createElement("input", { type: "text" }),
+        React.createElement(
+            "button",
+            { type: "submit", className: "btn btn-primary" },
+            "Add"
+        )
+    );
+    ReactDOM.render(options, optionsDiv);
+    ReactDOM.render(newOption, newOptionDiv);
+    if (appInfo.options.length === 0) {
         randomBtn.disabled = true;
     } else {
         randomBtn.disabled = false;
     }
+};
+function addNewOption(e) {
+    e.preventDefault();
+    var inputValue = e.target.elements[0].value.trim();
+    if (inputValue === "") {
+        alert("Please give a value");
+    } else {
+        appInfo.options.push([inputValue, uuid()]);
+        e.target.elements[0].value = "";
+        creatingOptions();
+    }
 }
-makeApp();
+function removeIt(e) {
+    e.preventDefault();
+    var id = e.target.id;
+    appInfo.options.map(function (option) {
+        if (option[1] === id) {
+            appInfo.options.splice(appInfo.options.indexOf(option), 1);creatingOptions();
+        }
+    });
+}
+function removeAll() {
+    if (JSON.stringify(appInfo.options) === JSON.stringify([])) {
+        alert("There is no option to delete");
+    } else {
+        appInfo.options = [];
+        creatingOptions();
+    }
+}
+function giveRandom() {
+    var options = appInfo.options.length;
+    var takeRandom = Math.floor(Math.random() * options);
+    var randomOption = appInfo.options[takeRandom][0];
+    alert(randomOption);
+}
+createMainElements();
