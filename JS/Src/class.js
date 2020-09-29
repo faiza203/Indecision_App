@@ -71,9 +71,9 @@ class Options extends React.Component {
     render() {
         return options.map((option, i) => {
             return <form key={i} id={option[1]} onSubmit={this.handleRemove} className="ml-5 mr-5 ">
-                <div className="ml-5 mr-5 mb-2 d-flex justify-content-between">        
+                <div className="ml-5 mr-5 mb-2 d-flex justify-content-between">
                     <p name="option" className="ml-5">{option[0]}</p>
-                    <button id={option[1] + "Btn" } className="btn btn-outline-success">Remove</button>
+                    <button id={option[1] + "Btn"} className="btn btn-outline-success">Remove</button>
                 </div>
             </form>
         })
