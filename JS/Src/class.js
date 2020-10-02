@@ -1,9 +1,10 @@
 const app = document.getElementById("app");
+const modal = document.getElementById("modal");
 let options = [["option", uuid()]];
 class IndecisionApp extends React.Component {
     constructor(props) {
         super(props);
-        this.option = []
+        this.option = [];
     }
     render() {
         return <div>
@@ -27,11 +28,28 @@ class RemoveAllOptions extends React.Component {
         super(props);
         this.handleRemoveAll = this.handleRemoveAll.bind(this);
         this.handleRandom = this.handleRandom.bind(this);
+        this.handelModal = this.handelModal.bind(this);
+        this.handelModalHidden = this.handelModalHidden.bind(this);
+    }
+    handelModal(option) {
+        modal.style.display = "block";
+        const modalElem = (<form onSubmit={this.handelModalHidden}>
+            <h1 className="h1">Selected Option</h1>
+            <div className="d-flex justify-content-between">
+            <h3 className="h3">{option}</h3>
+            <button className="btn btn-outline-danger">OK</button>
+            </div></form>);
+        ReactDOM.render(modalElem, modal)
+    }
+    handelModalHidden(e) {
+        e.preventDefault();
+        modal.style.display = "none";
+        app.style.opacity = 1;
     }
     handleRandom() {
         const randomIndex = Math.floor(Math.random() * options.length);
         const randomOption = options[randomIndex][0];
-        alert("You should do " + randomOption);
+        this.handelModal(randomOption);
     }
     handleRemoveAll() {
         if (options.length === 0) {
@@ -103,13 +121,3 @@ class AddNewOption extends React.Component {
             <button className="btn btn-outline-info mr-5">Add</button></form>
     }
 }
-function makeApp() {
-    ReactDOM.render(<IndecisionApp />, app);
-    const randomBtn = document.getElementById("randomBtn");
-    if (options.length === 0) {
-        randomBtn.disabled = true;
-    } else {
-        randomBtn.disabled = false;
-    }
-}
-makeApp();

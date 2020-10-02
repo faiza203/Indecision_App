@@ -1,0 +1,64 @@
+$body-bg-color : #6c757d;
+$header-bg-color: rgba(0,0,0,.65);
+$color : whitesmoke;
+$border : 3px rgba(0,0,0,.65) solid;
+$modal-border : 1px solid black;
+$header-font-weight: 400;
+$text-align-center : center;
+$header-font: normal;
+$border-none : none;
+$border-radius : 0px;
+$full-width : 100%;
+$width-80 : 80%;
+$width-50 : 50%;
+$padding-10 : 10px;
+$add-and-del-margin:10px 20em;
+$display-flex : flex;
+$space-between : space-between;
+body{
+    background-color: $body-bg-color;
+}
+header{
+    font-weight: $header-font-weight;
+    background-color: $header-bg-color;
+    color: $color;
+    text-align: $text-align-center;
+    font-style: $header-font;
+}
+#giveRandomBtn{
+    border: $border-none;
+    border-radius: $border-radius;
+    width: $full-width;
+    text-align: $text-align-center;
+}
+#addAndDel{  
+    padding: $padding-10;
+     margin: $add-and-del-margin;
+    border: $border;
+}
+#removeAllDiv , #options form ol li , #newOption form{
+    display: $display-flex;
+    justify-content: $space-between;  
+}
+
+#newOption input{
+    border:$border-none;
+    border-radius: 5px;
+    width: $width-80;
+    margin-right: 50px;
+}
+.btn{
+    margin-bottom: 10px;
+}
+#modal {
+    display: none;
+    margin: auto;
+    width: $width-50;
+    padding: 10px;
+    border: $modal-border;
+    top: 50%;
+    bottom: 10%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-100%);
+    text-align: $text-align-center;
+}
